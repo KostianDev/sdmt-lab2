@@ -107,4 +107,32 @@ func TestList(t *testing.T) {
 			t.Errorf("Expected error for empty list")
 		}
 	})
+
+	t.Run("Delete all elements", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('a')
+		list.Append('c')
+		list.Append('a')
+		list.Append('d')
+
+		list.DeleteAll('a')
+		if list.Length() != 3 {
+			t.Errorf("Expected length 3 after DeleteAll, got %d", list.Length())
+		}
+
+		for i := 0; i < list.Length(); i++ {
+			val, _ := list.Get(i)
+			if val == 'a' {
+				t.Errorf("Found 'a' at index %d after DeleteAll", i)
+			}
+		}
+
+		initialLength := list.Length()
+		list.DeleteAll('x')
+		if list.Length() != initialLength {
+			t.Errorf("Length changed after DeleteAll non-existing element")
+		}
+	})
 }
