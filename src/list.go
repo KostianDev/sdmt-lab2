@@ -170,7 +170,7 @@ func (l *LinkedList) FindLast(element rune) int {
 	return -1
 }
 
-func (l *LinkedList) Clone() *LinkedList {
+func (l *LinkedList) Clone() ListInterface {
 	clone := NewList()
 	for current := l.head; current != nil; current = current.next {
 		clone.Append(current.value)
