@@ -69,4 +69,42 @@ func TestList(t *testing.T) {
 			t.Errorf("Expected error for index out of range")
 		}
 	})
+
+	t.Run("Delete elements", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('c')
+		list.Append('d')
+
+		val, err := list.Delete(1)
+		if err != nil || val != 'b' || list.Length() != 3 {
+			t.Errorf("Delete from middle failed")
+		}
+
+		val, err = list.Delete(0)
+		if err != nil || val != 'a' || list.Length() != 2 {
+			t.Errorf("Delete from beginning failed")
+		}
+
+		val, err = list.Delete(1)
+		if err != nil || val != 'd' || list.Length() != 1 {
+			t.Errorf("Delete from end failed")
+		}
+
+		val, err = list.Delete(0)
+		if err != nil || val != 'c' || list.Length() != 0 {
+			t.Errorf("Delete last element failed")
+		}
+
+		_, err = list.Delete(-1)
+		if err == nil {
+			t.Errorf("Expected error for negative index")
+		}
+
+		_, err = list.Delete(0)
+		if err == nil {
+			t.Errorf("Expected error for empty list")
+		}
+	})
 }
