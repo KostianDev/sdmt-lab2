@@ -53,6 +53,24 @@ func (l *List) Get(index int) (rune, error) {
 	return l.elements[index], nil
 }
 
+func (l *List) FindFirst(element rune) int {
+	for i, e := range l.elements {
+		if e == element {
+			return i
+		}
+	}
+	return -1
+}
+
+func (l *List) FindLast(element rune) int {
+	for i := len(l.elements) - 1; i >= 0; i-- {
+		if l.elements[i] == element {
+			return i
+		}
+	}
+	return -1
+}
+
 func (l *List) Clear() {
 	l.elements = make([]rune, 0)
 }
