@@ -167,4 +167,38 @@ func TestList(t *testing.T) {
 			t.Errorf("Expected error for index out of range")
 		}
 	})
+
+	t.Run("Find elements", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('a')
+		list.Append('c')
+		list.Append('a')
+		list.Append('d')
+
+		if list.FindFirst('a') != 0 {
+			t.Errorf("FindFirst('a') failed")
+		}
+
+		if list.FindFirst('b') != 1 {
+			t.Errorf("FindFirst('b') failed")
+		}
+
+		if list.FindLast('a') != 4 {
+			t.Errorf("FindLast('a') failed")
+		}
+
+		if list.FindLast('d') != 5 {
+			t.Errorf("FindLast('d') failed")
+		}
+
+		if list.FindFirst('x') != -1 {
+			t.Errorf("FindFirst('x') should return -1")
+		}
+
+		if list.FindLast('x') != -1 {
+			t.Errorf("FindLast('x') should return -1")
+		}
+	})
 }
