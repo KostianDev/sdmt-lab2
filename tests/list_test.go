@@ -12,4 +12,20 @@ func TestList(t *testing.T) {
 			t.Errorf("Expected length 0, got %d", list.Length())
 		}
 	})
+
+	t.Run("Append elements", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('c')
+
+		if list.Length() != 3 {
+			t.Errorf("Expected length 3, got %d", list.Length())
+		}
+
+		val, err := list.Get(1)
+		if err != nil || val != 'b' {
+			t.Errorf("Expected 'b' at index 1, got %c (err: %v)", val, err)
+		}
+	})
 }
