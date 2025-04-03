@@ -303,4 +303,41 @@ func TestList(t *testing.T) {
 			t.Errorf("Extended list should be independent")
 		}
 	})
+
+	t.Run("Edge cases", func(t *testing.T) {
+		list := lists.NewList()
+
+		_, err := list.Get(0)
+		if err == nil {
+			t.Errorf("Expected error when Get from empty list")
+		}
+
+		_, err = list.Delete(0)
+		if err == nil {
+			t.Errorf("Expected error when Delete from empty list")
+		}
+
+		err = list.Insert('a', 1)
+		if err == nil {
+			t.Errorf("Expected error when Insert to empty list with index != 0")
+		}
+
+		for i := 0; i < 1000; i++ {
+			list.Append(rune(i % 26 + 'a'))
+		}
+		if list.Length() != 1000 {
+			t.Errorf("Expected length 1000 after mass Append")
+		}
+
+		for i := 0; i < 500; i++ {
+			_, err = list.Delete(0)
+			if err != nil {
+				t.Errorf("Mass Delete failed at step %d", i)
+				break
+			}
+		}
+		if list.Length() != 500 {
+			t.Errorf("Expected length 500 after mass Delete")
+		}
+	})
 }
