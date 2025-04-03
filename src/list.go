@@ -170,6 +170,14 @@ func (l *LinkedList) FindLast(element rune) int {
 	return -1
 }
 
+func (l *LinkedList) Clone() *LinkedList {
+	clone := NewList()
+	for current := l.head; current != nil; current = current.next {
+		clone.Append(current.value)
+	}
+	return clone
+}
+
 func (l *LinkedList) Clear() {
 	l.head = nil
 	l.tail = nil
