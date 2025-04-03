@@ -101,6 +101,25 @@ func (l *LinkedList) Delete(index int) (rune, error) {
 	return deletedValue, nil
 }
 
+func (l *LinkedList) DeleteAll(element rune) {
+	for current := l.head; current != nil; {
+		if current.value == element {
+			if current.previous != nil {
+				current.previous.next = current.next
+			} else {
+				l.head = current.next
+			}
+			if current.next != nil {
+				current.next.previous = current.previous
+			} else {
+				l.tail = current.previous
+			}
+			l.length--
+		}
+		current = current.next
+	}
+}
+
 func (l *LinkedList) Get(index int) (rune, error) {
 	if index < 0 || index >= l.length {
 		return 0, errors.New("index out of range")
