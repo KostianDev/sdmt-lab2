@@ -258,4 +258,21 @@ func TestList(t *testing.T) {
 			t.Errorf("Reversing single-element list should do nothing")
 		}
 	})
+
+	t.Run("Clear list", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('c')
+
+		list.Clear()
+		if list.Length() != 0 {
+			t.Errorf("Clear failed, length should be 0")
+		}
+
+		_, err := list.Get(0)
+		if err == nil {
+			t.Errorf("Expected error after Get on cleared list")
+		}
+	})
 }
