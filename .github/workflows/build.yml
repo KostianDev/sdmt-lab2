@@ -19,4 +19,4 @@ jobs:
           go-version: '1.24'
           
       - name: Test
-        run: go test ./tests
+        run: go test -v ./tests
