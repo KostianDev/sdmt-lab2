@@ -201,4 +201,29 @@ func TestList(t *testing.T) {
 			t.Errorf("FindLast('x') should return -1")
 		}
 	})
+
+	t.Run("Clone list", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('c')
+
+		clone := list.Clone()
+		if clone.Length() != list.Length() {
+			t.Errorf("Clone length mismatch")
+		}
+
+		list.Append('d')
+		if clone.Length() == list.Length() {
+			t.Errorf("Clone is not independent")
+		}
+
+		for i := 0; i < clone.Length(); i++ {
+			origVal, _ := list.Get(i)
+			cloneVal, _ := clone.Get(i)
+			if origVal != cloneVal {
+				t.Errorf("Value mismatch at index %d", i)
+			}
+		}
+	})
 }
