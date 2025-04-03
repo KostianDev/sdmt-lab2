@@ -135,4 +135,36 @@ func TestList(t *testing.T) {
 			t.Errorf("Length changed after DeleteAll non-existing element")
 		}
 	})
+
+	t.Run("Get elements", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('c')
+
+		val, err := list.Get(0)
+		if err != nil || val != 'a' {
+			t.Errorf("Get(0) failed")
+		}
+
+		val, err = list.Get(1)
+		if err != nil || val != 'b' {
+			t.Errorf("Get(1) failed")
+		}
+
+		val, err = list.Get(2)
+		if err != nil || val != 'c' {
+			t.Errorf("Get(2) failed")
+		}
+
+		_, err = list.Get(-1)
+		if err == nil {
+			t.Errorf("Expected error for negative index")
+		}
+
+		_, err = list.Get(3)
+		if err == nil {
+			t.Errorf("Expected error for index out of range")
+		}
+	})
 }
