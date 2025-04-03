@@ -53,6 +53,13 @@ func (l *List) Get(index int) (rune, error) {
 	return l.elements[index], nil
 }
 
+func (l *List) Clone() ListInterface {
+	clone := NewList()
+	clone.elements = make([]rune, l.Length())
+	copy(clone.elements, l.elements)
+	return clone
+}
+
 func (l *List) Reverse() {
 	for i, j := 0, len(l.elements)-1; i < j; i, j = i+1, j-1 {
 		l.elements[i], l.elements[j] = l.elements[j], l.elements[i]
@@ -79,4 +86,8 @@ func (l *List) FindLast(element rune) int {
 
 func (l *List) Clear() {
 	l.elements = make([]rune, 0)
+}
+
+func (l *List) Extend(other ListInterface) {
+	l.elements = append(l.elements, other.(*List).elements...)
 }
