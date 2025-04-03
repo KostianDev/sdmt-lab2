@@ -37,6 +37,15 @@ func (l *List) Delete(index int) (rune, error) {
 	return element, nil
 }
 
+func (l *List) DeleteAll(element rune) {
+	for i := 0; i < len(l.elements); i++ {
+		if l.elements[i] == element {
+			l.elements = append(l.elements[:i], l.elements[i+1:]...)
+			i--
+		}
+	}
+}
+
 func (l *List) Get(index int) (rune, error) {
 	if index < 0 || index >= len(l.elements) {
 		return 0, errors.New("index out of bounds")
