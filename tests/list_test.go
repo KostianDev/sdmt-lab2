@@ -275,4 +275,32 @@ func TestList(t *testing.T) {
 			t.Errorf("Expected error after Get on cleared list")
 		}
 	})
+
+	t.Run("Extend list", func(t *testing.T) {
+		list1 := lists.NewList()
+		list1.Append('a')
+		list1.Append('b')
+
+		list2 := lists.NewList()
+		list2.Append('c')
+		list2.Append('d')
+
+		list1.Extend(list2)
+		if list1.Length() != 4 {
+			t.Errorf("After extend, expected length 4, got %d", list1.Length())
+		}
+
+		expected := []rune{'a', 'b', 'c', 'd'}
+		for i, exp := range expected {
+			val, err := list1.Get(i)
+			if err != nil || val != exp {
+				t.Errorf("After extend, at index %d expected %c, got %c", i, exp, val)
+			}
+		}
+
+		list2.Append('e')
+		if list1.Length() == list2.Length() {
+			t.Errorf("Extended list should be independent")
+		}
+	})
 }
