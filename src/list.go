@@ -183,3 +183,10 @@ func (l *LinkedList) Clear() {
 	l.tail = nil
 	l.length = 0
 }
+
+func (d *LinkedList) Extend(other ListInterface) {
+    for i := 0; i < other.Length(); i++ {
+        element, _ := other.Get(i)
+        d.Append(element)
+    }
+}
