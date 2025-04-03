@@ -131,6 +131,28 @@ func (l *LinkedList) Get(index int) (rune, error) {
 	return current.value, nil
 }
 
+func (l *LinkedList) FindFirst(element rune) int {
+	current := l.head
+	for i := 0; current != nil; i++ {
+		if current.value == element {
+			return i
+		}
+		current = current.next
+	}
+	return -1
+}
+
+func (l *LinkedList) FindLast(element rune) int {
+	current := l.tail
+	for i := l.length - 1; current != nil; i-- {
+		if current.value == element {
+			return i
+		}
+		current = current.previous
+	}
+	return -1
+}
+
 func (l *LinkedList) Clear() {
 	l.head = nil
 	l.tail = nil
