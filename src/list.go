@@ -53,6 +53,12 @@ func (l *List) Get(index int) (rune, error) {
 	return l.elements[index], nil
 }
 
+func (l *List) Reverse() {
+	for i, j := 0, len(l.elements)-1; i < j; i, j = i+1, j-1 {
+		l.elements[i], l.elements[j] = l.elements[j], l.elements[i]
+	}
+}
+
 func (l *List) FindFirst(element rune) int {
 	for i, e := range l.elements {
 		if e == element {
