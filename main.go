@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
+	"github.com/KostianDev/sdmt-lab2/src"
 )
 
 func main() {
-	list := NewList()
+	list := lists.NewList()
 	demoList(list)
 }
 
-func demoList(list ListInterface) {
+func demoList(list lists.ListInterface) {
 	list.Append('a')
 	list.Append('b')
 	list.Append('c')
@@ -43,7 +44,7 @@ func demoList(list ListInterface) {
 	list.Reverse()
 	fmt.Println("After Reverse:", listToString(list))
 	
-	other := NewList()
+	other := lists.NewList()
 	other.Append('1')
 	other.Append('2')
 	list.Extend(other)
@@ -54,7 +55,7 @@ func demoList(list ListInterface) {
 	fmt.Println("After Clear:", listToString(list))
 }
 
-func listToString(list ListInterface) string {
+func listToString(list lists.ListInterface) string {
 	result := "["
 	for i := 0; i < list.Length(); i++ {
 		val, _ := list.Get(i)
