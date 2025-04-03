@@ -131,6 +131,23 @@ func (l *LinkedList) Get(index int) (rune, error) {
 	return current.value, nil
 }
 
+func (l *LinkedList) Reverse() {
+	if l.length <= 1 {
+		return
+	}
+	current := l.head
+	var prev *Node
+	l.tail = current
+	for current != nil {
+		next := current.next
+		current.next = prev
+		current.previous = next
+		prev = current
+		current = next
+	}
+	l.head = prev
+}
+
 func (l *LinkedList) FindFirst(element rune) int {
 	current := l.head
 	for i := 0; current != nil; i++ {
