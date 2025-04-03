@@ -226,4 +226,36 @@ func TestList(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("Reverse list", func(t *testing.T) {
+		list := lists.NewList()
+		list.Append('a')
+		list.Append('b')
+		list.Append('c')
+		list.Append('d')
+
+		list.Reverse()
+
+		expected := []rune{'d', 'c', 'b', 'a'}
+		for i, exp := range expected {
+			val, err := list.Get(i)
+			if err != nil || val != exp {
+				t.Errorf("After reverse, at index %d expected %c, got %c", i, exp, val)
+			}
+		}
+
+		emptyList := lists.NewList()
+		emptyList.Reverse()
+		if emptyList.Length() != 0 {
+			t.Errorf("Reversing empty list should do nothing")
+		}
+
+		singleList := lists.NewList()
+		singleList.Append('x')
+		singleList.Reverse()
+		val, _ := singleList.Get(0)
+		if val != 'x' || singleList.Length() != 1 {
+			t.Errorf("Reversing single-element list should do nothing")
+		}
+	})
 }
